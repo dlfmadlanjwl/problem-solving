@@ -1,4 +1,4 @@
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -29,6 +29,9 @@ class Solution {
 
         List<Integer> list = pq1.stream().filter(pq2::contains).collect(Collectors.toList());
         Collections.sort(list);
+        for (Integer i : list) {
+            System.out.println("i = " + i);
+        }
         if(size == 0) return new int[]{0, 0};
         return new int[]{list.get(list.size()-1), list.get(0)};
     }
