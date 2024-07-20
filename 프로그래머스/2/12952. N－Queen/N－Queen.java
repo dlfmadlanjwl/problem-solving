@@ -1,22 +1,21 @@
 import java.util.*;
 
 class Solution {
-    int count = 0;
     public int solution(int n) {
-        find(n, new ArrayList<>());
+        int count = find(n, new ArrayList<>());
         return count;
     }
     
-    void find(int n, List<Integer> list){
+    int find(int n, List<Integer> list){
+        int count = 0;
         if(n == list.size()) {
-            count++;
-            return;
+            return 1;
         }
         
         for(int i=1;i<=n;i++){
             if(list.size() == 0) {
                 list.add(i);
-                find(n, list);
+                count += find(n, list);
                 list.remove(0);
             }else{
                 int previous = list.get(list.size()-1);
@@ -28,10 +27,11 @@ class Solution {
                 }
                 if(isValid) {
                     list.add(i);
-                    find(n, list);
+                    count += find(n, list);
                     list.remove(list.size()-1);
                 }
             }
         }
+        return count;
     }
 }
