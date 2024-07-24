@@ -2,49 +2,22 @@ import java.util.*;
 
 class Solution {
     public int solution(String name) {
-        int answer = 0;
-        for(char c : name.toCharArray()){
-            int move = Math.min(c - 'A', 'Z'-c+1);
-            answer += move;
-        }
+        int n = name.length();
         
-        answer += bfs(name);
+        int LRMove = name.length() - 1;
+        int TDMove = 0;
         
-        return answer;
-    }
-    
-    int bfs(String name){
-        String str = "A".repeat(name.length());
-        Queue<Cursur> q = new LinkedList<>();
-        q.add(new Cursur(str,0, 0));
-        while(!q.isEmpty()){
-            Cursur now = q.poll();
-            char[] chars = now.str.toCharArray();
-            chars[now.index] = name.charAt(now.index);
-            String newStr = new String(chars);
-            if(newStr.equals(name)) return now.move;
+        for(int x=0;x<n;x++){
+            TDMove += Math.min(name.charAt(x) - 'A', 'Z'-name.charAt(x)+1);
             
-            int[] dx = {-1, 1};
-            for(int i=0;i<2;i++){
-                int idx = now.index + dx[i];
-                if(idx == -1) idx = name.length()-1;
-                if(idx == name.length()) idx = 0;
-                
-                q.add(new Cursur(newStr, idx, now.move+1));
+            int y = x+1;
+            while(y < n && name.charAt(y) == 'A'){
+                y++;
             }
+            
+            LRMove = Math.min(LRMove, Math.min(x*2+(n-y), (n-y)*2+x));
         }
-        return 0;
-    }
-    
-    class Cursur{
-        String str;
-        int index;
-        int move;
         
-        Cursur(String str, int index, int move){
-            this.str = str;
-            this.index = index;
-            this.move = move;
-        }
+       return LRMove + TDMove;
     }
 }
