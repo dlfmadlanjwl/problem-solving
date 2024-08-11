@@ -40,6 +40,7 @@ class Solution {
         for(int i=0;i<graph[now].size();i++){
             if(!isVisited[(int)graph[now].get(i)]){
                 int result = dfs(graph, isVisited, words, (int)graph[now].get(i), target, depth+1);
+                isVisited[(int)graph[now].get(i)] = false;
                 if(result > 0 && min == 0) min = result;
                 else if(result > 0 && min != 0)min = Math.min(min, result);
             }
