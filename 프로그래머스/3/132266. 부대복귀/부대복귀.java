@@ -10,27 +10,23 @@ class Solution {
             graph[road[1]].add(road[0]);
         }
         
-        int[] distance = new int[n+1];
-        for(int i=1;i<=n;i++) distance[i] = -1;
-        bfs(graph, distance, destination);
-        
         int[] answer = new int[sources.length];
         for(int i=0;i<sources.length;i++){
-            answer[i] = distance[sources[i]];
+            answer[i] = bfs(graph, sources[i], destination);
         }
         
         return answer;
     }
     
-    void bfs(List[] graph, int[] distance, int start){
-        Queue<Node> q = new LinkedList<>();
-        q.add(new Node(start, 0));
+    int bfs(List[] graph, int start, int end){
         boolean[] isVisited = new boolean[graph.length];
         isVisited[start] = true;
+        Queue<Node> q = new LinkedList<>();
+        q.add(new Node(start, 0));
         
         while(!q.isEmpty()){
             Node now = q.poll();
-            distance[now.index] = now.depth;
+            if(now.index == end) return now.depth;
             
             List<Integer> edges = graph[now.index];
             for(int i=0;i<edges.size();i++){
@@ -41,6 +37,8 @@ class Solution {
                 }
             }
         }
+        
+        return -1;
     }
     
     class Node{
