@@ -1,0 +1,12 @@
+SELECT 
+    CAR_ID,
+    IF(CAR_ID IN
+          (
+                SELECT CAR_ID
+                FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY AS A
+                WHERE A.START_DATE <= '2022-10-16' 
+                AND A.END_DATE >= '2022-10-16'),
+          '대여중', '대여 가능') AS AVAILABILITY
+FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY
+GROUP BY CAR_ID
+ORDER BY CAR_ID DESC
