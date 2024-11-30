@@ -7,7 +7,7 @@ class Solution
 		Scanner sc = new Scanner(System.in);
 		int T;
 		T=sc.nextInt();
-        
+
 		for(int test_case = 1; test_case <= T; test_case++)
 		{
 			int n = sc.nextInt();
@@ -16,25 +16,22 @@ class Solution
             for(int i=0;i<n;i++){
             	arr[i] = sc.nextInt();
             }
-            
             Arrays.sort(arr);
-            int max = 0;
-            int left = 0, right = arr.length-1;
+            int left = 0;
+            int right = arr.length-1;
+            int max = -1;
             while(left < right){
             	if(arr[left] + arr[right] > m){
                 	right--;
                 } else if(arr[left] + arr[right] < m){
-                    max = Math.max(arr[left] + arr[right], max);
+                    max = Math.max(max, arr[left] + arr[right]);
                 	left++;
                 } else {
-                	max = m;
-                    break;
+                    max = Math.max(max, arr[left] + arr[right]);
+                	break;
                 }
             }
-            
-            System.out.print("#"+test_case+" ");
-            if(max == 0) System.out.println(-1);
-            else System.out.println(max);
+            System.out.println("#"+test_case+" "+max);
 		}
 	}
 }
