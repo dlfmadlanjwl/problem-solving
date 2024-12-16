@@ -57,7 +57,7 @@ public class Main{
 
     static int findRoot(int[] parents, int node){
         if(parents[node] == node) return node;
-        return findRoot(parents, parents[node]);
+        return parents[node] = findRoot(parents, parents[node]);
     }
 
     static class Edge{
