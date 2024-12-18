@@ -1,0 +1,40 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+
+        st = new StringTokenizer(br.readLine());
+        int[] numbers = new int[n];
+        for(int i = 0; i < n; i++) {
+           numbers[i] = Integer.parseInt(st.nextToken());
+        }
+
+        Arrays.sort(numbers);
+
+        dfs(numbers, 0, new ArrayList<>(), m);
+    }
+
+    static void dfs(int[] numbers, int start, List<Integer> list, int m){
+        if(list.size() == m) {
+            for(int x : list) {
+                System.out.print(x + " ");
+            }
+            System.out.println();
+        }
+        for(int i=start;i<numbers.length;i++){
+            list.add(numbers[i]);
+            dfs(numbers, i+1, list, m);
+            list.remove(list.size()-1);
+        }
+    }
+}
