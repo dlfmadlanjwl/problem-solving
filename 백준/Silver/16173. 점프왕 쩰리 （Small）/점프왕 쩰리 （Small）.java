@@ -34,14 +34,11 @@ class Main {
         while (!queue.isEmpty()) {
             Position now = queue.poll();
             int distance = map[now.y][now.x];
-            if (now.y + distance == map.length - 1 && now.x == map.length - 1) {
-                return true;
-            }
-            if (now.y == map.length - 1 && now.x + distance == map.length - 1) {
-                return true;
-            }
             if (distance == 0) {
                 return false;
+            }
+            if (distance == -1) {
+                return true;
             }
             if (now.y + distance < map.length) {
                 queue.add(new Position(now.y + distance, now.x));
