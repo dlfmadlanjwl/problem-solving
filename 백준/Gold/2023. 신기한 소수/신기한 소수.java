@@ -31,8 +31,9 @@ class Main {
             return;
         }
 
-        for (int i = 0; i <= 9; i++) {
-            int nextNumber = Integer.parseInt(rawNumber + (i + ""));
+        for (int i = 1; i <= 9; i++) {
+            if(i % 2 == 0) continue;
+            int nextNumber = Integer.parseInt(rawNumber + i);
             if (isPrimeNumber(nextNumber)) {
                 dfs(nextNumber);
             }
