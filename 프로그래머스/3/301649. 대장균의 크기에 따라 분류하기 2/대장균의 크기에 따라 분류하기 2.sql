@@ -1,0 +1,14 @@
+SELECT 
+ID, 
+CASE 
+    WHEN T.Percent > 75 THEN 'LOW'
+    WHEN 50 < T.Percent && T.Percent <= 75 THEN 'MEDIUM'
+    WHEN 25 < T.Percent && T.Percent <= 50 THEN 'HIGH'
+    ELSE 'CRITICAL'
+END AS COLONY_NAME
+FROM 
+(SELECT 
+    ID,
+    PERCENT_RANK() OVER(ORDER BY SIZE_OF_COLONY DESC) * 100 AS Percent
+FROM ECOLI_DATA) AS T
+ORDER BY ID
