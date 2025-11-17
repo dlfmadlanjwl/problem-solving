@@ -1,14 +1,14 @@
 SELECT 
-ID, 
-CASE 
-    WHEN T.Percent > 75 THEN 'LOW'
-    WHEN 50 < T.Percent && T.Percent <= 75 THEN 'MEDIUM'
-    WHEN 25 < T.Percent && T.Percent <= 50 THEN 'HIGH'
-    ELSE 'CRITICAL'
-END AS COLONY_NAME
+    id,
+    CASE
+        WHEN t1.chml = 1 THEN 'LOW'
+        WHEN t1.chml = 2 THEN 'MEDIUM'
+        WHEN t1.chml = 3 THEN 'HIGH'
+        ELSE 'CRITICAL'
+    END AS colony_name
 FROM 
-(SELECT 
-    ID,
-    PERCENT_RANK() OVER(ORDER BY SIZE_OF_COLONY DESC) * 100 AS Percent
-FROM ECOLI_DATA) AS T
-ORDER BY ID
+    (SELECT 
+        id,
+        NTILE(4) OVER(ORDER BY size_of_colony) AS chml
+    FROM ECOLI_DATA) AS t1
+ORDER BY t1.id
